@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Axios from "axios";
 import './App.css'; 
 
 function App() {
@@ -14,8 +14,14 @@ function App() {
   };
 
   const handleClickButton = () => {
-    console.log(values);
-  }
+    Axios.post("http://localhost:3001/register", {
+      name: values.name,
+      cost: values.cost,
+      category: values.category
+    }).then((response) => {
+      console.log(response);
+    });
+  };
  
   return (
     <div className="app-container">
