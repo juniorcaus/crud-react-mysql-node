@@ -48,13 +48,16 @@ function App() {
           
           <button className="register-button" onClick={() => handleClickButton()} >Cadastrar</button>
       </div>
+
+
       { typeof listGames !== "undefined" &&
         listGames.map((value) => {
-        return <Card></Card>
+        return (
+          <Card key={value.id} listCard={listGames} setListCard={setListGames} id={value.id} name={value.name} cost={value.cost} category={value.category}></Card>
+          
+          )
+      })}
 
-      }) }
-
-      
     </div>
   );
 }
