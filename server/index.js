@@ -50,6 +50,17 @@ app.put("/edit", (req, resp) => {
      });
 });
 
+app.delete("/delete/:id", (req, res) => {
+    const { id } = req.params;
+
+    let SQL = "DELETE FROM games WHERE idgames = ?";
+
+    db.query(SQL, [id], (err, result) => {
+        if(err) console.log(err);
+        else res.send(result);
+    })
+});
+
 
 app.listen(3001, () => {
     console.log("Rodando serverno")
