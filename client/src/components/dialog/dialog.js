@@ -11,37 +11,43 @@ import Axios from "axios";
 
 export default function FormDialog(props) {
 
-  const [editValues, setEditValues] = useState({
-    id: props.id,
-    name: props.name,
-    cost: props.cost,
-    category: props.category,
-  });
-
-  const handleEditGame = () => {
-    Axios.put("http://localhost:3001/edit", {
-      id: editValues.id,
-      name: editValues.name,
-      cost: editValues.cost,
-      category: editValues.category,
+    const [editValues, setEditValues] = useState({
+      id: props.id,
+      name: props.name,
+      cost: props.cost,
+      category: props.category,
     });
-    handleClose();
-  };
-  
-     const handleClickOpen = () => {
-         props.setOpen(true);
-      };
-    
-      const handleClose = () => {
-        props.setOpen(false);
-      };
 
-      const handleChangeValues = value => {
-        setEditValues(prevValues => ({
-           ...prevValues,
-            [value.target.id]: value.target.value,
-        }));
-      }
+    const handleEditGame = () => {
+      Axios.put("http://localhost:3001/edit", {
+        id: editValues.id,
+        name: editValues.name,
+        cost: editValues.cost,
+        category: editValues.category,
+      });
+      handleClose();
+    };
+
+    const handleDeleteGame = () => {
+      Axios.delete(`http://localhost:3001/delete/${editValues.id}`);
+
+      handleClose();
+    };
+    
+    const handleClickOpen = () => {
+          props.setOpen(true);
+        };
+      
+    const handleClose = () => {
+          props.setOpen(false);
+        };
+
+    const handleChangeValues = value => {
+          setEditValues(prevValues => ({
+            ...prevValues,
+              [value.target.id]: value.target.value,
+          }));
+        }
 
       return (
     
@@ -88,7 +94,7 @@ export default function FormDialog(props) {
 
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={handleClose}>Excluir</Button>
+              <Button onClick={handleDeleteGame}>Excluir</Button>
               <Button onClick={handleEditGame}>Salvar</Button>
             </DialogActions>
           </Dialog>
